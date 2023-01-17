@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,19 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// questa è la rotta per la parte guest del sito
+Route::get('/', [PageController::class , 'index'])->name('home');
 
 // Raggruppo tutte le rotte per la parte admin del sito
 Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->prefix('admin')
     ->group(function(){
+        // qui mettiamo tutte le rotte della CRUD
+        // ...
         // nella funzione di callback creo la mia rotta
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     });
