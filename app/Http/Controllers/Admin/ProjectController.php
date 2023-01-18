@@ -75,9 +75,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -87,9 +87,22 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectRequest $request, Project $project)
     {
-        //
+        $form_data = $request->all();
+        // dump($comic);
+        // dd($form_data);
+
+        // modifico lo slug generandone uno nuovo se e solo se il titolo è stato modifcato
+        if($form_data['name'] != $project->name){
+            $form_data['slug'] = Project::generateSlug($form_data['name']);
+        } else {
+            $form_data['slug'] = $project->slug;
+        }
+
+        $project->update($form_data);
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**

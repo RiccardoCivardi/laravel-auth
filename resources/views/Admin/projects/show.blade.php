@@ -10,9 +10,9 @@
 
     <div class="container-fluid h-100 overflow-auto">
 
-        <div class=mb-3>
+        <div class="mb-3 d-flex align-items-center">
 
-            <h1 class="d-inline">DETTAGLIO PROGETTO {{$project->id}}: {{$project->name}}</h1>
+            <h1 class="d-inline me-3">DETTAGLIO PROGETTO {{$project->id}}: {{$project->name}}</h1>
             <a class="btn btn-outline-warning btn-sm" href="{{route('admin.projects.edit', $project)}}" title="edit"><i class="fa-solid fa-pen"></i></a>
 
         </div>
