@@ -18,6 +18,11 @@
 
         </div>
 
+        @if (session('deleted'))
+            <div class="alert alert-success" role="alert">
+                {{session('deleted')}}
+            </div>
+        @endif
 
         <table class="table table-dark table-striped">
             <thead>
