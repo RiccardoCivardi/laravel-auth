@@ -1,1 +1,12 @@
-@import '~bootstrap/scss/bootstrap'
+@use 'partials/vars' as*;
+
+@import '~bootstrap/scss/bootstrap';
+
+header {
+    height: $header-height;
+}
+
+.main-wrapper {
+    height: calc(100vh - $header-height);
+}
+

@@ -10,6 +10,8 @@
 
     <title>Laravel Boolfolio @yield('title')</title>
 
+    <!-- Font Awesome-->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css' integrity='sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==' crossorigin='anonymous'/>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,16 +22,33 @@
 </head>
 
 <body>
-
     <div id="app">
 
-        @include('admin.partials.header')
+        <header>
+            @include('admin.partials.header')
+        </header>
 
-        <main class="">
-            @yield('content')
-        </main>
+        <div class="main-wrapper container-fluid">
+            <div class="row h-100">
+
+                @auth
+
+                    <div class="col-2 bg-dark h-100">
+                        @include('admin.partials.aside')
+                    </div>
+
+                @endauth
+
+                <div class="@auth col-10 @else col-12 @endauth h-100">
+                    <main class="h-100 overflow-hidden">
+                        @yield('content')
+                    </main>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-
 </body>
 
 </html>
