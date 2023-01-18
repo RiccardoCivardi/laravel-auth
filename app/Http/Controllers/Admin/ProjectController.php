@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -36,9 +37,25 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        //
+        // validazione
+
+        // la request validate la metto nel file ComicRequest che creo con questo comando
+        // php artisan make:request ProjectRequest
+        // poi la metto in store(...) e la importo
+
+        $form_data=$request->all();
+
+        $new_project= new Project();
+
+        $form_data['slug'] = Project::generateSlug($form_data['name']);
+
+        $new_project->fill($form_data);
+
+        $new_project->save();
+
+        return redirect()->route('admin.projects.show', $new_project);
     }
 
     /**

@@ -10,7 +10,14 @@
 
     <div class="container-fluid h-100 overflow-auto">
 
-        <h1>PROGETTI</h1>
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h1>PROGETTI</h1>
+
+            <a class="btn btn-outline-success btn-sm" href="{{route('admin.projects.create')}}">NUOVO PROGETTO</a>
+
+        </div>
+
 
         <table class="table table-dark table-striped">
             <thead>
