@@ -10,3 +10,14 @@ header {
     height: calc(100vh - $header-height);
 }
 
+.image {
+    width: 300px;
+    height: 300px;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
