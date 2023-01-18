@@ -34,3 +34,5 @@ Route::middleware(['auth', 'verified'])
 
 
 require __DIR__.'/auth.php';
+
+Route::get('admin.projects/orderby/{column}/{direction}', [ProjectController::class, 'orderby'])->name('projects.orderby');

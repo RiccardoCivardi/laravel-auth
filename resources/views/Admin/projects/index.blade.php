@@ -28,8 +28,12 @@
             <thead>
 
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">NOME PROGETTO</th>
+                    <th scope="col">
+                        <a href="{{route('projects.orderby',['id',$direction])}}">ID</a>
+                    </th>
+                    <th scope="col">
+                        <a href="{{route('projects.orderby',['id',$direction])}}">NOME PROGETTO</a>
+                    </th>
                     <th scope="col">AZIONI</th>
                 </tr>
 
