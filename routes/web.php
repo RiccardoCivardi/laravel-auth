@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -24,16 +25,12 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->prefix('admin')
     ->group(function(){
-        // qui mettiamo tutte le rotte della CRUD
-        // ...
-        // nella funzione di callback creo la mia rotta
+        // nella funzione di callback creo la mie rotta
         Route::get('/', [DashboardController::class, 'index'])->name('home');
+        // qui mettiamo tutte le rotte della CRUD con la resources
+        // ...
+        Route::resource('projects', ProjectController::class);
     });
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__.'/auth.php';

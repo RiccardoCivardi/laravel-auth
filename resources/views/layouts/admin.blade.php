@@ -40,7 +40,7 @@
                 @endauth
 
                 <div class="@auth col-10 @else col-12 @endauth h-100">
-                    <main class="h-100 overflow-hidden">
+                    <main class="h-100 overflow-hidden py-4">
                         @yield('content')
                     </main>
                 </div>
