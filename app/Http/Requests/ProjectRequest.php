@@ -27,7 +27,7 @@ class ProjectRequest extends FormRequest
             'name'=>'required|max:100|min:5',
             'client_name'=>'required|max:100|min:5',
             'summary'=>'required|max:500',
-            'cover_image'=>'required|max:255|min:5'
+            'cover_image'=>'nullable|image|max:3200'
         ];
     }
 
@@ -45,10 +45,8 @@ class ProjectRequest extends FormRequest
             'summary.required'=>'La descrizione del progetto è un campo obbligatorio',
             'summary.max'=>'La decrizione del progetto può avere al massimo :max caratteri',
 
-            'cover_image.required'=>'L\'immagine è un campo obbligatorio',
-            'cover_image.max'=>'L\'immagine può avere al massimo :max caratteri',
-            'cover_image.min'=>'L\'immagine può avere al minimo :min caratteri'
-
+            'cover_image.image' =>'Il file immagine non è corretto',
+            'cover_image.max'=>'il file immagine deve essere al massimo di 3 mega'
         ];
     }
 }

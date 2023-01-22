@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -16,7 +17,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('id','desc')->paginate(10);
+
+        if(isset($_GET['search'])){
+            $search = $_GET['search'];
+            $projects = Project::where('name','like',"%$search%")->orderBy('id','desc')->paginate(10);
+        }else{
+            $projects = Project::orderBy('id','desc')->paginate(10);
+        }
+
+        // $projects = Project::orderBy('id','desc')->paginate(10);
 
         $direction = 'desc';
 
@@ -59,6 +68,16 @@ class ProjectController extends Controller
 
         $form_data=$request->all();
         $form_data['slug'] = Project::generateSlug($form_data['name']);
+
+        // se è presente il file immagine lo salvo nel filesystem e nel db
+        if(array_key_exists('cover_image', $form_data)){
+            // salvo il nome originale
+            $form_data['cover_image_original_name'] = $request->file('cover_image')->getClientOriginalName();
+            // salvo il file sul filesystem e il path in $form_data['cover_image]
+            $form_data['cover_image'] = Storage::put('uploads', $form_data['cover_image']);
+        }
+
+        // dd($form_data);
 
 
         // posso evitare questi 3 passaggi scrivendo
@@ -117,6 +136,17 @@ class ProjectController extends Controller
             $form_data['slug'] = $project->slug;
         }
 
+        // controllo immagine
+        if(array_key_exists('cover_image',$form_data)){
+
+            // se invio una nuova immagine devo eliminare la vecchia dal filesystem
+            if($project->cover_image){
+                Storage::disk('public')->delete($project->cover_image);
+            }
+            $form_data['cover_image_original_name'] = $request->file('cover_image')->getClientOriginalName();
+            $form_data['cover_image'] = Storage::put('uploads', $form_data['cover_image']);
+        }
+
         $project->update($form_data);
 
         return redirect()->route('admin.projects.show', $project)->with('updated', "Il progetto è stato modificato correttamente");
@@ -130,6 +160,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if($project->cover_image){
+            Storage::disk('public')->delete($project->cover_image);
+        }
+
         $project->delete();
 
         //faccio il redirect a index passando in sessione l'eliminazione per mostrare l'alert

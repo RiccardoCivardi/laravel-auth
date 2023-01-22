@@ -33,7 +33,12 @@
 
         <div class="d-flex justify-content-center">
             <div class="card mb-5" style="width: 40rem;">
-                <img src="{{$project->cover_image}}" class="card-img-top" alt="{{$project->name}}">
+
+                @if($project->cover_image)
+                    <img src="{{asset('storage/' . $project->cover_image)}}" class="card-img-top" alt="{{$project->cover_image_original_name}}">
+                    <div><i>{{$project->cover_image_original_name}}</i></div>
+                @endif
+
                 <div class="card-body">
                     <h3 class="card-title">{{$project->name}}</h3>
                     <h6 class="card-title">Data di creazione: {{date_format(date_create($project->created_at), 'd/m/Y H:i')}}</h6>

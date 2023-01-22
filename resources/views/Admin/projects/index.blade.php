@@ -91,7 +91,11 @@
 
                 @empty
 
-                    <h3>Non ci sono progetti</h3>
+                    <tr>
+                        <td colspan="4">
+                            <h3>Nessun risultato trovato</h3>
+                        </td>
+                    </tr>
 
                 @endforelse
 

@@ -23,7 +23,7 @@ class ProjectSeeder extends Seeder
             $new_project->slug = Project::generateSlug($new_project->name);
             $new_project->client_name = $faker->sentence(5);
             $new_project->summary = $faker->paragraph(5);
-            $new_project->cover_image = 'https://www.newgroove.it/wp-content/uploads/woocommerce-placeholder-1024x1024.png';
+            // $new_project->cover_image = 'https://www.newgroove.it/wp-content/uploads/woocommerce-placeholder-1024x1024.png';
 
             // dd($new_project);
 

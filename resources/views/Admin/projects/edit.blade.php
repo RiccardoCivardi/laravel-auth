@@ -28,7 +28,7 @@
         @endif
 
         <!-- Il form punta a store e usa il metodo POST-->
-        <form action="{{route('admin.projects.update', $project)}}" method="POST">
+        <form action="{{route('admin.projects.update', $project)}}" method="POST" enctype="multipart/form-data">
             <!-- Token per il form, lo vedo nell'inspector nell html -->
             @csrf
             @method('PUT')
@@ -58,11 +58,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="cover_image" class="form-label">Immagine *</label>
-                <input type="text" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror" id="cover_image" value="{{old('cover_image', $project->cover_image)}}"  placeholder="Inserisci la URL dell'immagine">
+                <label for="cover_image" class="form-label">Immagine</label>
+                <input
+                onchange="showImage(event)"
+                type="file" name="cover_image" class="form-control" id="cover_image" >
                 @error('cover_image')
                     <p class="invalid-feedback">{{$message}}</p>
                 @enderror
+
+                <div class="mt-2">
+                    <img id="output-image" width="150" src="{{asset('storage/' . $project->cover_image)}}" alt="{{$project->cover_image_original_name}}">
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-outline-success">MODIFICA</button>
@@ -80,10 +87,10 @@
                     console.error( error );
                 } );
 
-        // function showImage(event){
-        //     const tagImage = document.getElementById('output-image');
-        //     tagImage.src = URL.createObjectURL(event.target.files[0]);
-        // }
+        function showImage(event){
+            const tagImage = document.getElementById('output-image');
+            tagImage.src = URL.createObjectURL(event.target.files[0]);
+        }
 
     </script>
 

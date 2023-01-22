@@ -10,7 +10,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','slug','client_name','summary','cover_image'];
+    protected $fillable = ['name','slug','client_name','summary','cover_image', 'cover_image_original_name'];
 
     // funzione per generare lo slug e se esiste gia modificarlo tramite contatore
     public static function generateSlug($string){
