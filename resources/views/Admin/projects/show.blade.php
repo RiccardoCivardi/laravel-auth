@@ -8,26 +8,45 @@
 
 @section('content')
 
+    @if (session('created'))
+        <div class="alert alert-success" role="alert">
+            {{session('created')}}
+        </div>
+    @endif
+
+    @if (session('updated'))
+        <div class="alert alert-success" role="alert">
+            {{session('updated')}}
+        </div>
+    @endif
+
     <div class="container-fluid h-100 overflow-auto">
 
-        <div class="mb-3 d-flex align-items-center">
+        <div class="mb-3 d-flex justify-content-center align-items-center">
 
-            <h1 class="d-inline me-3">DETTAGLIO PROGETTO {{$project->id}}: {{$project->name}}</h1>
-            <a class="btn btn-outline-warning btn-sm" href="{{route('admin.projects.edit', $project)}}" title="edit"><i class="fa-solid fa-pen"></i></a>
+            <h1 class="d-inline me-3">{{$project->name}}</h1>
+            <a class="btn btn-outline-warning btn-sm me-2" href="{{route('admin.projects.edit', $project)}}" title="edit"><i class="fa-solid fa-pen"></i></a>
+
+            @include('admin.partials.form-delete')
 
         </div>
 
-        <h6>Data di creazione: {{$project->created_at}}</h6>
-        <h6 class="mb-5">Data ultima modifica: {{$project->updated_at}}</h6>
-
-        <h3>CLIENTE: {{$project->client_name}}</h3>
-        <p>DESCRIZIONE PROGETTO: {{$project->summary}}</p>
-        <div class="image">
-            <img src="{{$project->cover_image}}" alt="">
+        <div class="d-flex justify-content-center">
+            <div class="card mb-5" style="width: 40rem;">
+                <img src="{{$project->cover_image}}" class="card-img-top" alt="{{$project->name}}">
+                <div class="card-body">
+                    <h3 class="card-title">{{$project->name}}</h3>
+                    <h6 class="card-title">Data di creazione: {{date_format(date_create($project->created_at), 'd/m/Y H:i')}}</h6>
+                    <h6 class="card-title">Data ultima modifica: {{date_format(date_create($project->update_at), 'd/m/Y H:i')}}</h6>
+                    <h6 class="card-title">CLIENTE: {{$project->client_name}}</h6>
+                    <p class="card-text">DESCRIZIONE PROGETTO: {!!$project->summary!!}</p>
+                </div>
+            </div>
         </div>
 
-
-        <a class="btn btn-outline-dark" href="{{route('admin.projects.index')}}">TORNA AI PROGETTI</a>
+        <div class="text-center">
+            <a class="btn btn-outline-dark" href="{{route('admin.projects.index')}}">TORNA ALL'ELENCO</a>
+        </div>
 
     </div>
 

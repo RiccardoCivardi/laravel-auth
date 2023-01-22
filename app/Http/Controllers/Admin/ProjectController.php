@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(10);
+        $projects = Project::orderBy('id','desc')->paginate(10);
 
         $direction = 'desc';
 
@@ -28,7 +28,9 @@ class ProjectController extends Controller
 
         $projects = Project::orderBy($column,$direction)->paginate(10);
 
-        return view('admin.projects.index', compact('projects','direction'));
+        $th_active = $column;
+
+        return view('admin.projects.index', compact('projects','direction', 'th_active'));
     }
 
     /**
@@ -51,21 +53,26 @@ class ProjectController extends Controller
     {
         // validazione
 
-        // la request validate la metto nel file ComicRequest che creo con questo comando
+        // la request validate la metto nel file ProjectRequest che creo con questo comando
         // php artisan make:request ProjectRequest
         // poi la metto in store(...) e la importo
 
         $form_data=$request->all();
-
-        $new_project= new Project();
-
         $form_data['slug'] = Project::generateSlug($form_data['name']);
 
-        $new_project->fill($form_data);
 
-        $new_project->save();
+        // posso evitare questi 3 passaggi scrivendo
+        // $new_project= new Project();
+        // $new_project->fill($form_data);
+        // $new_project->save();
 
-        return redirect()->route('admin.projects.show', $new_project);
+        $new_project = Project::create($form_data);
+
+
+
+
+        //faccio il redirect a index passando in sessione l'eliminazione per mostrare l'alert
+        return redirect()->route('admin.projects.show', $new_project)->with('created', "Il progetto è stato creato correttamente");
     }
 
     /**
@@ -112,7 +119,7 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        return redirect()->route('admin.projects.show', $project);
+        return redirect()->route('admin.projects.show', $project)->with('updated', "Il progetto è stato modificato correttamente");
     }
 
     /**

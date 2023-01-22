@@ -28,11 +28,43 @@
             <thead>
 
                 <tr>
+
+                    @php
+
+                        $class_active_id = '';
+                        $class_active_name = '';
+                        $class_active_updated_at = '';
+
+                        $class_active_id = Route::currentRouteName() === 'admin.projects.index' ? 'active-desc' : '';
+
+                        if($class_active = Route::currentRouteName() === 'admin.projects.orderby'){
+                            if($th_active == 'id' && $direction == 'desc'){
+                                $class_active_id = 'active-desc';
+                            }else if($th_active == 'id' && $direction == 'asc'){
+                                $class_active_id = 'active-asc';
+                            } else if($th_active == 'name' && $direction == 'desc'){
+                                $class_active_name = 'active-desc';
+                            }else if($th_active == 'name' && $direction == 'asc'){
+                                $class_active_name = 'active-asc';
+                            } else if($th_active == 'updated_at' && $direction == 'desc'){
+                                $class_active_updated_at = 'active-desc';
+                            }else if($th_active == 'updated_at' && $direction == 'asc'){
+                                $class_active_updated_at = 'active-asc';
+                            }
+                        }
+
+                        $class_active = Route::currentRouteName() === 'admin.projects.orderby' ? 'active' : '';
+
+                    @endphp
+
                     <th scope="col">
-                        <a href="{{route('projects.orderby',['id',$direction])}}">ID</a>
+                        <a class="link-custom {{$class_active_id}}" href="{{route('admin.projects.orderby',['id',$direction])}}">ID</a>
                     </th>
                     <th scope="col">
-                        <a href="{{route('projects.orderby',['id',$direction])}}">NOME PROGETTO</a>
+                        <a class="link-custom {{$class_active_name}}" href="{{route('admin.projects.orderby',['name',$direction])}}">NOME PROGETTO</a>
+                    </th>
+                    <th scope="col">
+                        <a class="link-custom {{$class_active_updated_at}}" href="{{route('admin.projects.orderby',['updated_at',$direction])}}">ULTIMA MODIFICA</a>
                     </th>
                     <th scope="col">AZIONI</th>
                 </tr>
@@ -46,12 +78,13 @@
                     <tr>
                         <td>{{$project->id}}</td>
                         <td>{{$project->name}}</td>
+                        <td>{{date_format(date_create($project->update_at), 'd/m/Y')}}</td>
                         <td class="px-0">
                             <a class="btn btn-outline-primary btn-sm" href="{{route('admin.projects.show' , $project)}}" title="show"><i class="fa-solid fa-eye"></i></a>
 
                             <a class="btn btn-outline-warning btn-sm" href="{{route('admin.projects.edit', $project)}}" title="edit"><i class="fa-solid fa-pen"></i></a>
 
-                            @include('admin.partials.form-delete', ['project'=>$project])
+                            @include('admin.partials.form-delete')
 
                         </td>
                     </tr>
@@ -63,8 +96,12 @@
                 @endforelse
 
             </tbody>
-          </table>
-          {{$projects->links()}}
+        </table>
+
+        <!-- pagination -->
+        <div class="pagination-container d-flex justify-content-center mt-3">
+            {{$projects->links()}}
+        </div>
 
     </div>
 

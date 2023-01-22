@@ -31,7 +31,7 @@
                 <label for="name" class="form-label">Nome progetto</label>
                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name')}}" placeholder="Inserisci il nome del progetto">
                 @error('name')
-                    <div class="invalid-feedback">{{$message}}</div>
+                    <p class="invalid-feedback">{{$message}}</p>
                 @enderror
             </div>
 
@@ -39,7 +39,7 @@
                 <label for="client_name" class="form-label">Nome cliente</label>
                 <input type="text" name="client_name" class="form-control @error('client_name') is-invalid @enderror" id="client_name" value="{{old('client_name')}}" placeholder="Inserisci il nome del cliente">
                 @error('client_name')
-                    <div class="invalid-feedback">{{$message}}</div>
+                    <p class="invalid-feedback">{{$message}}</p>
                 @enderror
             </div>
 
@@ -47,7 +47,7 @@
                 <label for="summary" class="form-label">Descrizione del progetto</label>
                 <textarea name="summary" class="form-control @error('summary') is-invalid @enderror" id="summary" placeholder="Inserisci la descrizione del progetto" row="3">{{old('summary')}}</textarea>
                 @error('summary')
-                    <div class="invalid-feedback">{{$message}}</div>
+                    <p class="invalid-feedback">{{$message}}</p>
                 @enderror
             </div>
 
@@ -55,7 +55,7 @@
                 <label for="cover_image" class="form-label">Immagine *</label>
                 <input type="text" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror" id="cover_image" value="{{old('cover_image')}}"  placeholder="Inserisci la URL dell'immagine">
                 @error('cover_image')
-                    <div class="invalid-feedback">{{$message}}</div>
+                    <p class="invalid-feedback">{{$message}}</p>
                 @enderror
             </div>
 
@@ -64,5 +64,21 @@
         </form>
 
     </div>
+
+    <script>
+        ClassicEditor
+                .create( document.querySelector( '#summary' ),{
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+
+        // function showImage(event){
+        //     const tagImage = document.getElementById('output-image');
+        //     tagImage.src = URL.createObjectURL(event.target.files[0]);
+        // }
+
+    </script>
 
 @endsection

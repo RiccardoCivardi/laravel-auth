@@ -22,5 +22,12 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a  class="nav-link" href="https://github.com/RiccardoCivardi" target="blank">
+                <i class="fa-brands fa-github fs-5 me-1"></i>
+                <span class="d-none d-xl-inline">GitHub</span>
+            </a>
+        </li>
+
     </ul>
 </nav>

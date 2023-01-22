@@ -30,9 +30,11 @@ Route::middleware(['auth', 'verified'])
         // qui mettiamo tutte le rotte della CRUD con la resources
         // ...
         Route::resource('projects', ProjectController::class);
+        // Rotta che riordina la tabella in base alla selezione
+        Route::get('projects/orderby/{column}/{direction}', [ProjectController::class, 'orderby'])->name('projects.orderby');
     });
 
 
 require __DIR__.'/auth.php';
 
-Route::get('admin.projects/orderby/{column}/{direction}', [ProjectController::class, 'orderby'])->name('projects.orderby');
+

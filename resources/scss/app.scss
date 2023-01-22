@@ -21,3 +21,64 @@ header {
     object-fit: contain;
 }
 
+.pagination-container{
+    .pagination{
+        .page-item{
+            margin: 0 2px;
+            .page-link{
+                background-color: #212429;
+                color: white;
+                font-weight: bold;
+                border-radius: 8px;
+                font-size: .9rem;
+                &:hover {
+                    background-color: white;
+                    color: #212429;
+                }
+            }
+        }
+    }
+}
+
+.ck-editor__editable[role="textbox"] {
+    /* editing area */
+    height: 200px;
+}
+
+.link-custom {
+    color: white;
+    text-decoration: none;
+    &:hover {
+        color: lightgreen;
+    }
+    &.active-desc {
+        color: lightgreen;
+        text-decoration: underline;
+    }
+    &.active-desc::after{
+        margin-left: 5px;
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 8px solid red;
+    }
+    &.active-asc {
+        color: lightgreen;
+        text-decoration: underline;
+    }
+    &.active-asc::after{
+        margin-left: 5px;
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 8px solid red;
+    }
+}
+
+
